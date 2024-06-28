@@ -1,4 +1,18 @@
-const login = () => {
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
+
+const Login = () => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const { login, loading } = useLogin();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(username, password);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center mx-auto min-w-96">
       <div className="w-full p-6 bg-gray-400 rounded-lg shadow-md bg-clip-padding backdrop-filter backdrop-blur-lg">
@@ -6,25 +20,39 @@ const login = () => {
           Login
           <span className="text-blue-500"> ChatApp</span>
         </h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="p-2 label">
               <span className="text-base label-text">Username</span>
             </label>
-            <input type="text" placeholder="Enter Username" className="w-full h-10 input input-bordered bg-slate-200" />
+            <input
+              type="text"
+              placeholder="Enter Username"
+              className="w-full h-10 input input-bordered bg-slate-200"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
 
           <div>
             <label className="label">
               <span className="text-base label-text">Password</span>
             </label>
-            <input type="password" placeholder="Enter Password" className="w-full h-10 input input-bordered bg-slate-200" />
+            <input
+              type="password"
+              placeholder="Enter Password"
+              className="w-full h-10 input input-bordered bg-slate-200"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
-          <a href="#" className="inline-block mt-2 text-sm hover:underline hover:text-blue-600">
+          <Link to="/signup" className="inline-block mt-2 text-sm hover:underline hover:text-blue-600">
             {"Don't"} have an account?
-          </a>
+          </Link>
           <div>
-            <button className="mt-2 btn btn-block btn-sm">Login</button>
+            <button className="mt-2 btn btn-block btn-sm" disabled={loading}>
+              {loading ? <span className="loading loading-spinner"></span> : "Login"}
+            </button>
           </div>
         </form>
       </div>
@@ -32,7 +60,7 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
 
 // const login = () => {
 //   return (

@@ -44,14 +44,13 @@ const getMessagesBetweenTwoUser = async (req, res) => {
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatId] },
     }).populate("messages");
+
+    if (!conversation) return res.status(200).json([]);
     const messages = conversation.messages;
-
-    if (!conversation) return res.staus(200).json([]);
-
     res.status(200).json(messages);
   } catch (error) {
     res.status(500).json({ error: "Interval Server Error" });
-    console.log("Error in getting messages", error.message);
+    console.log("Error in getting messages getmessage controller", error.message);
   }
 };
 
