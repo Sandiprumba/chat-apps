@@ -1,0 +1,20 @@
+MAKE A GIVEN CHANGES IN BACKEND SERVER JS  COMPONENT
+
+import path from 'path'
+
+const __dirname = path.resolve()
+
+middleware after route server JS
+app.use(express.static(path.join(__dirname,'/frontend/dist')))
+
+
+we are able to run frontend from server as well 
+app.get("*", (req,res)=>{
+   res.sendFile(path.join(__dirname,"frontend","dist","index.html"))
+})
+
+
+package json
+start : node backedn/server.js
+build: npm install && npm install --prefix frontend && npm run build --prefix frontend
+this will download all the package for frontend and backend and create dist folder 
