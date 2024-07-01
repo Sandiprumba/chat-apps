@@ -10,12 +10,12 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import messageRoute from "./routes/message.routes.js";
 
-const PORT = process.env.PORT || 8000;
-const __dirname = path.resolve();
-
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
+
+const PORT = process.env.PORT || 8000;
+const __dirname = path.resolve();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoute);
